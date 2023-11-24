@@ -1,4 +1,4 @@
-/**
+/*
  * Ce fichier contient les fonctions qui retournent des configurations de graphique
  */
 

@@ -1,11 +1,16 @@
-/**
+/*
  * Ce fichier contient les fonctions pour traiter les données
  */
 
 function processData(data) {
 }
 
-// Récupérer les données
+/**
+ * Récupérer les données depuis un fichier JSON
+ * en utilisant une requête AJAX
+ * @param cheminUrl - le chemin vers le fichier JSON
+ * @returns {Promise<unknown>}
+ */
 function getData(cheminUrl) {
     return $.ajax({
         type: "GET",
@@ -22,6 +27,13 @@ function getData(cheminUrl) {
         });
 }
 
+
+/**
+ * Permet de convertir une valeur de devise en euros
+ * @param value - la valeur à convertir
+ * @param currency - la devise de la valeur
+ * @returns {number|*} - la valeur convertie en euros
+ */
 function currencyToEur(value, currency) {
     const exchangeRates = {
         "usd": 0.91505346,
