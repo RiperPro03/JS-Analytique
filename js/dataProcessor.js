@@ -11,21 +11,30 @@ function processData(data) {
  * @param cheminUrl - le chemin vers le fichier JSON
  * @returns {Promise<unknown>}
  */
-function getData(cheminUrl) {
-    return $.ajax({
-        type: "GET",
-        url: cheminUrl
-    })
-        .then(function (output) {
-            return output;
-        })
-        .catch(function (http_error) {
-            let server_msg = http_error.responseText;
-            let code = http_error.status;
-            let code_label = http_error.statusText;
-            alert("Erreur " + code + " (" + code_label + ") : " + server_msg);
-        });
+// function getData(cheminUrl) {
+//     return $.ajax({
+//         type: "GET",
+//         url: cheminUrl
+//     })
+//         .then(function (output) {
+//             return output;
+//         })
+//         .catch(function (http_error) {
+//             let server_msg = http_error.responseText;
+//             let code = http_error.status;
+//             let code_label = http_error.statusText;
+//             alert("Erreur " + code + " (" + code_label + ") : " + server_msg);
+//         });
+// }
+function getData(fileContent) {
+    try {
+        var data = JSON.parse(fileContent);
+        return Promise.resolve(data);
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
+
 
 
 /**
@@ -110,4 +119,4 @@ function currencyToEur(value, currency) {
 
 
 // Exportez les fonctions pour les utiliser dans main.js
-export { processData, getData };
+export { processData, getData, currencyToEur };

@@ -7,13 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Chart</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="js/dataProcessor.js"></script>
-    <script src="js/chartConfigurations.js"></script>
-    <script src="js/main.js"></script>
+
+    <script type="module" src="js/dataProcessor.js"></script>
+    <script type="module" src="js/chartConfigurations.js"></script>
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div>
+        <canvas id="myChart2"></canvas>
+    </div>
 
 </body>
 </html>
