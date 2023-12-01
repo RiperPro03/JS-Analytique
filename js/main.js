@@ -1,11 +1,11 @@
-import {} from './dataProcessor.js';
+import {cleanDataSalary} from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig} from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
 $(document).ready(function() {
     // Créer les datasets
     const datasetNA = new MyDataset("../../data/survey_results_NA.json");
-    const datasetWE = new MyDataset("../../data/survey_results_NA.json");
+    const datasetWE = new MyDataset("../../data/survey_results_WE.json");
 
     function loadBarChart(id, data, labels, title) {
         return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
@@ -15,19 +15,23 @@ $(document).ready(function() {
         return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title));
     }
 
+
+
     // Charger les datasets
     datasetNA.loadDataset();
     datasetWE.loadDataset();
 
     // Récupérer les données des datasets et les afficher dans la console
     datasetNA.getData().then(data => {
-        console.log(data);
+        let cleanData = cleanDataSalary(data);
+        console.log("NA : ", cleanData);
     }).catch(error => {
         console.error("Erreur:", error);
     });
 
     datasetWE.getData().then(data => {
-        console.log(data);
+        let cleanData = cleanDataSalary(data);
+        console.log("WE : ", cleanData);
     }).catch(error => {
         console.error("Erreur:", error);
     });

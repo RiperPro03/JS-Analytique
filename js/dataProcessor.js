@@ -6,6 +6,26 @@ function processData(data) {
 
 }
 
+function cleanDataSalary(data) {
+    return data.filter(row => {
+        // Vérifier si CompTotal n'est pas 'NA' et est dans la plage de salaire spécifiée
+        const isSalaryValid = row.CompTotal !== 'NA' && row.CompTotal >= 1000 && row.CompTotal <= 1000000;
+
+        if (row.Currency && row.Currency !== 'NA') {
+            // Prend la première partie avant tout espace blanc
+            const currencyCode = row.Currency.split(/\s+/)[0];
+            // Convertir le salaire en euros si CompTotal est valide
+            if (isSalaryValid) {
+                row.CompTotal = currencyToEur(row.CompTotal, currencyCode);
+            }
+        }
+
+        // Garder la ligne seulement si le salaire est valide
+        return isSalaryValid;
+    });
+}
+
+
 /**
  * Permet de convertir une valeur de devise en euros
  * @param value - la valeur à convertir
@@ -65,7 +85,8 @@ function currencyToEur(value, currency) {
         "cdf": 0.0003485002,
         "zmw": 0.039341527,
         "zar": 0.049784169,
-        "cop": 0.00022354525
+        "cop": 0.00022354525,
+        "bgn": 0.51129188
     };
 
     if (!currency || currency === "") {
@@ -82,10 +103,11 @@ function currencyToEur(value, currency) {
         return value * rate;
     } else {
         console.log("Error: la devise " + currency + " n'est pas supportée.");
+        console.log(currency.toLowerCase());
         return;
     }
 }
 
 
 // Exportez les fonctions pour les utiliser dans main.js
-export { processData, currencyToEur };
+export { processData, currencyToEur, cleanDataSalary };
