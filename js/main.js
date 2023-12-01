@@ -1,4 +1,4 @@
-import {getData} from './dataProcessor.js';
+import {} from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig} from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
