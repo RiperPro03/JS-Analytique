@@ -2,10 +2,6 @@
  * Ce fichier contient les fonctions pour traiter les données
  */
 
-function processData(data) {
-
-}
-
 function cleanDataSalary(data) {
     return data.filter(row => {
         // Vérifier si CompTotal n'est pas 'NA' et est dans la plage de salaire spécifiée
@@ -110,4 +106,4 @@ function currencyToEur(value, currency) {
 
 
 // Exportez les fonctions pour les utiliser dans main.js
-export { processData, currencyToEur, cleanDataSalary };
+export {cleanDataSalary };

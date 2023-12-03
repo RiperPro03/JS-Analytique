@@ -7,6 +7,10 @@ $(document).ready(function() {
     const datasetNA = new MyDataset("../../data/survey_results_NA.json");
     const datasetWE = new MyDataset("../../data/survey_results_WE.json");
 
+    // Créer une variable globale pour stocker les données
+    let datasetGlobal = [];
+
+
     function loadBarChart(id, data, labels, title) {
         return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
     }
@@ -15,25 +19,65 @@ $(document).ready(function() {
         return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title));
     }
 
+    /**
+     * Permet d'ajouter des données à la variable globale datasetGlobal
+     * @param newData
+     */
+    function addData(newData) {
+        datasetGlobal = [...datasetGlobal, ...newData];
+    }
+
+    /**
+     * Permet de supprimer des données de la variable globale datasetGlobal
+     * @param datasetIdentifier
+     */
+    function removeData(datasetIdentifier) {
+        datasetGlobal = datasetGlobal.filter(item => item.source !== datasetIdentifier);
+    }
+
+    /**
+     * Permet de charger les données des datasets sélectionnés
+     */
+    function loadData() {
+        if (document.getElementById('checkboxNA').checked) {
+            datasetNA.loadDataset();
+            datasetNA.getData().then(data => {
+                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: 'NA' })); // Nettoyer les données et ajouter la source
+                removeData('NA');
+                addData(cleanData);
+                console.log("NA : ", cleanData);
+            }).catch(error => {
+                console.error("Erreur:", error);
+            });
+        } else {
+            removeData('NA');
+        }
+
+        if (document.getElementById('checkboxWE').checked) {
+            datasetWE.loadDataset();
+            datasetWE.getData().then(data => {
+                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: 'WE' })); // Nettoyer les données et ajouter la source
+                removeData('WE');
+                addData(cleanData);
+                console.log("WE : ", cleanData);
+            }).catch(error => {
+                console.error("Erreur:", error);
+            });
+        } else {
+            removeData('EUW'); // Supprimez les données EUW si non sélectionnées
+        }
+    }
 
 
-    // Charger les datasets
-    datasetNA.loadDataset();
-    datasetWE.loadDataset();
 
-    // Récupérer les données des datasets et les afficher dans la console
-    datasetNA.getData().then(data => {
-        let cleanData = cleanDataSalary(data);
-        console.log("NA : ", cleanData);
-    }).catch(error => {
-        console.error("Erreur:", error);
+    loadData();
+
+    document.getElementById('loadData').addEventListener('click', function() {
+        loadData();
     });
 
-    datasetWE.getData().then(data => {
-        let cleanData = cleanDataSalary(data);
-        console.log("WE : ", cleanData);
-    }).catch(error => {
-        console.error("Erreur:", error);
+    document.getElementById('showGlobalVar').addEventListener('click', function() {
+        console.log("Global : ", datasetGlobal);
     });
 
 

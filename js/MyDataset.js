@@ -11,11 +11,9 @@ export class MyDataset {
                 url: this.cheminUrl
             })
                 .then(function (output) {
-                    // Résoudre la promesse avec les données reçues
                     resolve(output);
                 })
                 .catch(function (http_error) {
-                    // Construire un message d'erreur et rejeter la promesse
                     let server_msg = http_error.responseText;
                     let code = http_error.status;
                     let code_label = http_error.statusText;
