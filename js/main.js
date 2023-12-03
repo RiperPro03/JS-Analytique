@@ -1,5 +1,5 @@
 import {cleanDataSalary} from './dataProcessor.js';
-import {getBarChartConfig, getPieChartConfig} from './chartConfigurations.js';
+import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
 $(document).ready(function() {
@@ -9,15 +9,6 @@ $(document).ready(function() {
 
     // Créer une variable globale pour stocker les données
     let datasetGlobal = [];
-
-
-    function loadBarChart(id, data, labels, title) {
-        return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
-    }
-
-    function loadPieChart(id, data, labels, title) {
-        return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title));
-    }
 
     /**
      * Permet d'ajouter des données à la variable globale datasetGlobal
@@ -64,8 +55,25 @@ $(document).ready(function() {
                 console.error("Erreur:", error);
             });
         } else {
-            removeData('EUW'); // Supprimez les données EUW si non sélectionnées
+            removeData('WE'); // Supprimez les données EUW si non sélectionnées
         }
+    }
+
+
+    function loadBarChart(id, data, labels, title) {
+        return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
+    }
+
+    function loadPieChart(id, data, labels, title) {
+        return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title));
+    }
+
+    function loadLineChart(id, data, labels, title) {
+        return new Chart(document.getElementById(id).getContext('2d'), getLineChartConfig(data, labels, title));
+    }
+
+    function loadDoughnutChart(id, data, labels, title) {
+        return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title));
     }
 
 
@@ -97,4 +105,23 @@ $(document).ready(function() {
     ], ['Blue', 'Yellow', 'Red', 'Green'], "My Bar Chart");
 
     loadPieChart("myChart2", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "My Pie Chart");
+
+    loadLineChart("myLineChart", [
+        {
+            label: 'Dataset 1',
+            data: [10, 20, 30, 40],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // utilisé pour la couleur de la ligne
+            borderColor: 'rgba(255, 99, 132, 1)' // couleur de la ligne
+        },
+        {
+            label: 'Dataset 2',
+            data: [40, 30, 20, 10],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)', // utilisé pour la couleur de la ligne
+            borderColor: 'rgba(54, 162, 235, 1)' // couleur de la ligne
+        }
+    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Mon Graphique en Ligne");
+
+    loadDoughnutChart("myDoughnutChart", [300, 50, 100, 200, 150], ['Red', 'Blue', 'Yellow', 'Green', 'Purple'], "Mon Graphique Doughnut");
+
+
 });

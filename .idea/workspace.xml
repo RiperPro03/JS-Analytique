@@ -7,8 +7,7 @@
     <list default="true" id="93e54147-7f99-4bc2-992a-8240bbf2c313" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/MyDataset.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/MyDataset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/dataProcessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/dataProcessor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/chartConfigurations.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/chartConfigurations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +73,7 @@
       <workItem from="1701068869568" duration="234000" />
       <workItem from="1701069234481" duration="5095000" />
       <workItem from="1701415968419" duration="13664000" />
-      <workItem from="1701614972410" duration="4183000" />
+      <workItem from="1701614972410" duration="4825000" />
     </task>
     <servers />
   </component>
