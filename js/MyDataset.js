@@ -1,6 +1,6 @@
 export class MyDataset {
-    constructor(cheminUrl) {
-        this.cheminUrl = cheminUrl;
+    constructor(chemin) {
+        this.chemin = chemin;
         this.data = null;
     }
 
@@ -8,7 +8,7 @@ export class MyDataset {
         this.data = new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: this.cheminUrl
+                url: this.chemin
             })
                 .then(function (output) {
                     resolve(output);

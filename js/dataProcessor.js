@@ -2,10 +2,19 @@
  * Ce fichier contient les fonctions pour traiter les données
  */
 
+/**
+ * Permet de nettoyer et de filtrer les données de salaire pour les garder les données pertinentes
+ * et les convertir en euros
+ * @param data - les données à nettoyer
+ * @returns {*} - les données nettoyées
+ */
 function cleanDataSalary(data) {
+    const minSalary = 1000;
+    const maxSalary = 1000000;
+
     return data.filter(row => {
         // Vérifier si CompTotal n'est pas 'NA' et est dans la plage de salaire spécifiée
-        const isSalaryValid = row.CompTotal !== 'NA' && row.CompTotal >= 1000 && row.CompTotal <= 1000000;
+        const isSalaryValid = row.CompTotal !== 'NA' && row.CompTotal >= minSalary && row.CompTotal <= maxSalary;
 
         if (row.Currency && row.Currency !== 'NA') {
             // Prend la première partie avant tout espace blanc
