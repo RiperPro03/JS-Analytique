@@ -156,23 +156,25 @@ $(document).ready(function() {
 
     
     // Liste des paramètres
-    let parameters = ["Paramètre 1", "Paramètre 2", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
+    let pays = ["France", "USA", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
+
+    let metier = ["Développeur", "Administrateur", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
 
 // Récupération de la datalist
-    let dataList = document.getElementById('parameters');
-    let dataList2 = document.getElementById('anotherParameters');
+    let dataListPays = document.getElementsByClassName('pays-List');
+    let dataListMetier = document.getElementsByClassName('metier-List');
 
 // Création et ajout des options à la datalist
-    parameters.forEach(param => {
+    pays.forEach(param => {
         let option = document.createElement('option');
         option.value = param;
-        dataList.appendChild(option);
+        Array.from(dataListPays).forEach(dataList => dataList.appendChild(option.cloneNode(true)));
     });
 
-    parameters.forEach(param => {
+    metier.forEach(param => {
         let option = document.createElement('option');
         option.value = param;
-        dataList2.appendChild(option);
+        Array.from(dataListMetier).forEach(dataList => dataList.appendChild(option.cloneNode(true)));
     });
 
 
