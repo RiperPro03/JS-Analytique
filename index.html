@@ -7,50 +7,74 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Chart</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+    <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
+    <!-- JS -->
     <script type="module" src="js/dataProcessor.js"></script>
     <script type="module" src="js/chartConfigurations.js"></script>
     <script type="module" src="js/main.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkboxNA" name="dataset" value="NA" checked>
-            <label class="form-check-label" for="checkboxNA">Amérique du Nord (NA)</label>
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="datasetSelect" class="form-label">Sélectionner un dataset</label>
+                    <select class="form-select mb-3" id="datasetSelect">
+                        <option value="NA">Amérique du Nord (NA)</option>
+                        <option value="WE">Europe de l'Ouest (WE)</option>
+                        <option value="BOTH">Toutes les données (NA & WE)</option>
+                    </select>
+                    <button class="btn btn-secondary" id="showGlobalVar">Afficher Global VAR</button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkboxWE" name="dataset" value="WE">
-            <label class="form-check-label" for="checkboxWE">Europe de l'Ouest (WE)</label>
+    <div class="container mt-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <canvas id="myLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <canvas id="myDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="btn btn-primary" id="loadData">Charger les données</button>
-        <button class="btn btn-secondary" id="showGlobalVar">Afficher Global VAR</button>
     </div>
 
-    <div class="container">
-        <canvas id="myChart"></canvas>
-    </div>
-
-    <div class="container">
-        <canvas id="myChart2"></canvas>
-    </div>
-
-    <div class="container">
-        <canvas id="myLineChart"></canvas>
-    </div>
-
-    <div class="container">
-        <canvas id="myDoughnutChart"></canvas>
-    </div>
-
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </body>
 </html>

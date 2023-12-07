@@ -29,33 +29,21 @@ $(document).ready(function() {
     /**
      * Permet de charger les données des datasets sélectionnés
      */
-    function loadData() {
-        if (document.getElementById('checkboxNA').checked) {
-            datasetNA.loadDataset();
-            datasetNA.getData().then(data => {
-                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: 'NA' })); // Nettoyer les données et ajouter la source
-                removeData('NA');
+    // Charge et traite les données pour NA ou WE
+    function loadData(datasetIdentifier) {
+        if (datasetIdentifier === 'NA' || datasetIdentifier === 'WE') {
+            let dataset = datasetIdentifier === 'NA' ? datasetNA : datasetWE;
+            dataset.loadDataset();
+            dataset.getData().then(data => {
+                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: datasetIdentifier }));
+                removeData(datasetIdentifier);
                 addData(cleanData);
-                console.log("NA : ", cleanData);
+                console.log(datasetIdentifier + " : ", cleanData);
             }).catch(error => {
-                console.error("Erreur:", error);
+                console.error("Erreur lors du chargement des données de " + datasetIdentifier + ":", error);
             });
         } else {
-            removeData('NA');
-        }
-
-        if (document.getElementById('checkboxWE').checked) {
-            datasetWE.loadDataset();
-            datasetWE.getData().then(data => {
-                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: 'WE' })); // Nettoyer les données et ajouter la source
-                removeData('WE');
-                addData(cleanData);
-                console.log("WE : ", cleanData);
-            }).catch(error => {
-                console.error("Erreur:", error);
-            });
-        } else {
-            removeData('WE'); // Supprimez les données EUW si non sélectionnées
+            removeData(datasetIdentifier);
         }
     }
 
@@ -77,10 +65,22 @@ $(document).ready(function() {
     }
 
 
-    loadData();
+    loadData('NA');
 
-    document.getElementById('loadData').addEventListener('click', function() {
-        loadData();
+    document.getElementById('datasetSelect').addEventListener('change', function() {
+        let selectedValue = this.value;
+
+        if (selectedValue === 'NA' || selectedValue === 'BOTH') {
+            loadData('NA');
+        } else {
+            removeData('NA');
+        }
+
+        if (selectedValue === 'WE' || selectedValue === 'BOTH') {
+            loadData('WE');
+        } else {
+            removeData('WE');
+        }
     });
 
     document.getElementById('showGlobalVar').addEventListener('click', function() {
