@@ -87,25 +87,7 @@ $(document).ready(function() {
         console.log("Global : ", datasetGlobal);
     });
 
-
-    loadBarChart("myChart", [
-        {
-            label: 'Dataset 1',
-            data: [10, 20, 30, 40],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
-            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
-        },
-        {
-            label: 'Dataset 2',
-            data: [40, 30, 20, 10],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)'
-        }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "My Bar Chart");
-
-    loadPieChart("myChart2", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "My Pie Chart");
-
-    loadLineChart("myLineChart", [
+    loadLineChart("SalParExp", [
         {
             label: 'Dataset 1',
             data: [10, 20, 30, 40],
@@ -118,10 +100,55 @@ $(document).ready(function() {
             backgroundColor: 'rgba(54, 162, 235, 0.2)', // utilisé pour la couleur de la ligne
             borderColor: 'rgba(54, 162, 235, 1)' // couleur de la ligne
         }
-    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Mon Graphique en Ligne");
+    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Salaire Moyen par année d'expérience");
 
-    loadDoughnutChart("myDoughnutChart", [300, 50, 100, 200, 150], ['Red', 'Blue', 'Yellow', 'Green', 'Purple'], "Mon Graphique Doughnut");
+    loadBarChart("SalParEtu", [
+        {
+            label: 'Dataset 1',
+            data: [10, 20, 30, 40],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
+            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+        },
+        {
+            label: 'Dataset 2',
+            data: [40, 30, 20, 10],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)'
+        }
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par niveau d'étude");
 
+    loadBarChart("SalParPlatCloud", [
+        {
+            label: 'Dataset 1',
+            data: [10, 20, 30, 40],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
+            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+        },
+        {
+            label: 'Dataset 2',
+            data: [40, 30, 20, 10],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)'
+        }
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par plateforme de cloud");
 
+    loadBarChart("SalParFrameWork", [
+        {
+            label: 'Dataset 1',
+            data: [10, 20, 30, 40],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
+            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+        },
+        {
+            label: 'Dataset 2',
+            data: [40, 30, 20, 10],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)'
+        }
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par plateforme de FrameWork");
+
+    loadPieChart("TopOS", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des systèmes d’exploitation par métier");
+
+    loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des outils de communication par métier");
 
 });
