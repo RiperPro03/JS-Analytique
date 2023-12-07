@@ -1,4 +1,4 @@
-import {cleanDataSalary} from './dataProcessor.js';
+import {cleanDataSalary } from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
@@ -77,7 +77,6 @@ $(document).ready(function() {
     }
 
 
-
     loadData();
 
     document.getElementById('loadData').addEventListener('click', function() {
@@ -122,6 +121,7 @@ $(document).ready(function() {
     ], ['Janvier', 'Février', 'Mars', 'Avril'], "Mon Graphique en Ligne");
 
     loadDoughnutChart("myDoughnutChart", [300, 50, 100, 200, 150], ['Red', 'Blue', 'Yellow', 'Green', 'Purple'], "Mon Graphique Doughnut");
+
 
 
 });
