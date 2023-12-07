@@ -4,8 +4,8 @@ import { MyDataset } from './MyDataset.js';
 
 $(document).ready(function() {
     // Créer les datasets
-    const datasetNA = new MyDataset("../../data/survey_results_NA.json");
-    const datasetWE = new MyDataset("../../data/survey_results_WE.json");
+    const datasetNA = new MyDataset("../../data/survey_results_NA.json"); // Chemin relatif par rapport à index.html
+    const datasetWE = new MyDataset("../../data/survey_results_WE.json"); // Chemin relatif par rapport à index.html
 
     // Créer une variable globale pour stocker les données
     let datasetGlobal = [];
@@ -85,6 +85,7 @@ $(document).ready(function() {
 
     document.getElementById('showGlobalVar').addEventListener('click', function() {
         console.log("Global : ", datasetGlobal);
+        alert("Taille de la variable globale : " + datasetGlobal.length);
     });
 
     loadLineChart("SalParExp", [
@@ -150,5 +151,29 @@ $(document).ready(function() {
     loadPieChart("TopOS", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des systèmes d’exploitation par métier");
 
     loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des outils de communication par métier");
+
+
+
+    
+    // Liste des paramètres
+    let parameters = ["Paramètre 1", "Paramètre 2", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
+
+// Récupération de la datalist
+    let dataList = document.getElementById('parameters');
+    let dataList2 = document.getElementById('anotherParameters');
+
+// Création et ajout des options à la datalist
+    parameters.forEach(param => {
+        let option = document.createElement('option');
+        option.value = param;
+        dataList.appendChild(option);
+    });
+
+    parameters.forEach(param => {
+        let option = document.createElement('option');
+        option.value = param;
+        dataList2.appendChild(option);
+    });
+
 
 });
