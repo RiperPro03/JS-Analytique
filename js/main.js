@@ -93,7 +93,7 @@ $(document).ready(function() {
             backgroundColor: 'rgba(54, 162, 235, 0.2)', // utilisé pour la couleur de la ligne
             borderColor: 'rgba(54, 162, 235, 1)' // couleur de la ligne
         }
-    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Salaire Moyen par année d'expérience");
+    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Salaire moyen par année d'expérience");
 
     loadBarChart("SalParEtu", [
         {
@@ -108,7 +108,7 @@ $(document).ready(function() {
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par niveau d'étude");
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par niveau d'étude");
 
     loadBarChart("SalParPlatCloud", [
         {
@@ -123,7 +123,7 @@ $(document).ready(function() {
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par plateforme de cloud");
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par plateforme de cloud");
 
     loadBarChart("SalParFrameWork", [
         {
@@ -138,11 +138,11 @@ $(document).ready(function() {
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire Moyen par plateforme de FrameWork");
+    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par plateforme de FrameWork");
 
-    loadPieChart("TopOS", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des systèmes d’exploitation par métier");
+    loadPieChart("TopOS", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "TOP des systèmes d’exploitation par métier");
 
-    loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des outils de communication par métier");
+    loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "TOP des outils de communication par métier");
 
 
     // Liste des paramètres
