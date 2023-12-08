@@ -49,7 +49,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSearchSalParExp" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersSalParExp" id="parameterSearchSalParExp" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersSalParExp" id="parameterSearchSalParExp" placeholder="Choisir un Pays">
                                 <datalist id="parametersSalParExp" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
@@ -65,7 +65,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSearchSalParEtu" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersSalParEtu" id="parameterSearchSalParEtu" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersSalParEtu" id="parameterSearchSalParEtu" placeholder="Choisir un Pays">
                                 <datalist id="parametersSalParEtu" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
@@ -81,18 +81,14 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSearchSalParPlatCloud" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersSalParExp" id="parameterSearchSalParPlatCloud" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersSalParExp" id="parameterSearchSalParPlatCloud" placeholder="Choisir un Pays">
                                 <datalist id="parametersSalParPlatCloud" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Second input de recherche -->
                             <div class="col">
-                                <label for="anotherParameterSearch" class="form-label">Choisir un autre paramètre</label>
-                                <input class="form-control" list="anotherParameters" id="anotherParameterSearch" placeholder="Tapez pour rechercher...">
-                                <datalist id="anotherParameters">
-                                    <!-- Les options pour le second input seront ajoutées par JavaScript -->
-                                </datalist>
+                                <label for="expYearsSalParPlatCloud" class="form-label">Année d’expérience</label>
+                                <input type="number" class="form-control" id="expYearsSalParPlatCloud" placeholder="Taper une valeur ...">
                             </div>
                         </div>
                         <canvas id="SalParPlatCloud"></canvas>
@@ -105,18 +101,14 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSalParFrameWork" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersSalParFrameWork" id="parameterSalParFrameWork" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersSalParFrameWork" id="parameterSalParFrameWork" placeholder="Choisir un Pays">
                                 <datalist id="parametersSalParFrameWork" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Second input de recherche -->
                             <div class="col">
-                                <label for="anotherParameterSearch" class="form-label">Année d’expérience</label>
-                                <input class="form-control" list="anotherParameters" id="anotherParameterSearch" placeholder="Tapez pour rechercher...">
-                                <datalist id="anotherParameters">
-                                    <!-- Les options pour le second input seront ajoutées par JavaScript -->
-                                </datalist>
+                                <label for="expYearsSalParFrameWork" class="form-label">Année d’expérience</label>
+                                <input type="number" class="form-control" id="expYearsSalParFrameWork" placeholder="Taper une valeur ...">
                             </div>
                         </div>
                         <canvas id="SalParFrameWork"></canvas>
@@ -129,20 +121,18 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSearchTopOS" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersTopOS" id="parameterSearchTopOS" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersTopOS" id="parameterSearchTopOS" placeholder="Choisir un Pays">
                                 <datalist id="parametersTopOS" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Second input de recherche -->
                             <div class="col">
                                 <label for="parameterSearchTopOS2" class="form-label">Métier</label>
-                                <input class="form-control" list="parameterTopOS2" id="parameterSearchTopOS2" placeholder="Choisir un Métier">
+                                <input class="form-control validate-datalist" list="parameterTopOS2" id="parameterSearchTopOS2" placeholder="Choisir un Métier">
                                 <datalist id="parameterTopOS2" class="metier-List">
-                                    <!-- Les options pour le second input seront ajoutées par JavaScript -->
+                                    <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Dropdown -->
                             <div class="col">
                                 <label for="dropdownMenuTopOS" class="form-label">Filtre</label>
                                 <select class="form-select" id="dropdownMenuTopOS">
@@ -163,20 +153,18 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="parameterSearchTopOutCom" class="form-label">Pays</label>
-                                <input class="form-control" list="parametersTopOutCom" id="parameterSearchTopOutCom" placeholder="Choisir un Pays">
+                                <input class="form-control validate-datalist" list="parametersTopOutCom" id="parameterSearchTopOutCom" placeholder="Choisir un Pays">
                                 <datalist id="parametersTopOutCom" class="pays-List">
                                     <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Second input de recherche -->
                             <div class="col">
                                 <label for="parameterSearchTopOutCom2" class="form-label">Métier</label>
-                                <input class="form-control" list="parameterTopOutCom2" id="parameterSearchTopOutCom2" placeholder="Choisir un Métier">
+                                <input class="form-control validate-datalist" list="parameterTopOutCom2" id="parameterSearchTopOutCom2" placeholder="Choisir un Métier">
                                 <datalist id="parameterTopOutCom2" class="metier-List">
-                                    <!-- Les options pour le second input seront ajoutées par JavaScript -->
+                                    <!-- Les options seront ajoutées par JavaScript -->
                                 </datalist>
                             </div>
-                            <!-- Dropdown -->
                             <div class="col">
                                 <label for="dropdownMenuTopOutCom" class="form-label">Filtre</label>
                                 <select class="form-select" id="dropdownMenuTopOutCom">

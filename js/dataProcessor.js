@@ -6,11 +6,11 @@
  * Permet de nettoyer et de filtrer les données de salaire pour les garder les données pertinentes
  * et les convertir en euros
  * @param data - les données à nettoyer
+ * @param minSalary - le salaire minimum
+ * @param maxSalary - le salaire maximum
  * @returns {*} - les données nettoyées
  */
-function cleanDataSalary(data) {
-    const minSalary = 1000;
-    const maxSalary = 1000000;
+function cleanDataSalary(data, minSalary, maxSalary) {
 
     return data.filter(row => {
         // Vérifier si CompTotal n'est pas 'NA' et est dans la plage de salaire spécifiée
@@ -113,6 +113,42 @@ function currencyToEur(value, currency) {
     }
 }
 
+/**
+ * Permet de définir les valeurs min et max d'un input
+ * @param id - l'id de l'input
+ * @param min - la valeur min
+ * @param max - la valeur max
+ */
+function setInputMinMax(id, min, max) {
+    let experienceYearsInput = document.getElementById(id);
+
+    experienceYearsInput.min = min;
+    experienceYearsInput.max = max;
+
+    experienceYearsInput.addEventListener('input', function () {
+        if (!this.checkValidity()) {
+            this.classList.add('is-invalid');
+        } else {
+            this.classList.remove('is-invalid');
+        }
+    });
+}
+
+/**
+ * Permet d'ajouter des valeurs à un input de type datalist
+ * @param id - l'id de l'input
+ * @param liste - la liste des valeurs à ajouter
+ */
+function addInputDataList(id, liste) {
+    let dataListPays = document.getElementsByClassName(id);
+
+    liste.forEach(param => {
+        let option = document.createElement('option');
+        option.value = param;
+        Array.from(dataListPays).forEach(dataList => dataList.appendChild(option.cloneNode(true)));
+    });
+}
+
 
 // Exportez les fonctions pour les utiliser dans main.js
-export {cleanDataSalary };
+export {cleanDataSalary, setInputMinMax, addInputDataList };

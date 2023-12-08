@@ -1,4 +1,4 @@
-import {cleanDataSalary } from './dataProcessor.js';
+import {cleanDataSalary, setInputMinMax, addInputDataList } from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
@@ -9,14 +9,6 @@ $(document).ready(function() {
 
     // Créer une variable globale pour stocker les données
     let datasetGlobal = [];
-
-    /**
-     * Permet d'ajouter des données à la variable globale datasetGlobal
-     * @param newData
-     */
-    function addData(newData) {
-        datasetGlobal = [...datasetGlobal, ...newData];
-    }
 
     /**
      * Permet de supprimer des données de la variable globale datasetGlobal
@@ -35,9 +27,9 @@ $(document).ready(function() {
             let dataset = datasetIdentifier === 'NA' ? datasetNA : datasetWE;
             dataset.loadDataset();
             dataset.getData().then(data => {
-                let cleanData = cleanDataSalary(data).map(item => ({ ...item, source: datasetIdentifier }));
+                let cleanData = cleanDataSalary(data, 1000, 1000000).map(item => ({ ...item, source: datasetIdentifier }));
                 removeData(datasetIdentifier);
-                addData(cleanData);
+                datasetGlobal = [...datasetGlobal, ...cleanData];
                 console.log(datasetIdentifier + " : ", cleanData);
             }).catch(error => {
                 console.error("Erreur lors du chargement des données de " + datasetIdentifier + ":", error);
@@ -153,29 +145,29 @@ $(document).ready(function() {
     loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "top des outils de communication par métier");
 
 
-
-    
     // Liste des paramètres
-    let pays = ["France", "USA", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
+    let pays = ["France", "USA", "Paramètre 3", "Paramètre 4", "Paramètre 5"]; // Valeurs à set avec les données du dataset
 
-    let metier = ["Développeur", "Administrateur", "Paramètre 3", "Paramètre 4", "Paramètre 5"];
+    let metier = ["Développeur", "Administrateur", "Paramètre 3", "Paramètre 4", "Paramètre 5"]; // Valeurs à set avec les données du dataset
 
-// Récupération de la datalist
-    let dataListPays = document.getElementsByClassName('pays-List');
-    let dataListMetier = document.getElementsByClassName('metier-List');
+    setInputMinMax("expYearsSalParFrameWork", 0, 50); // Valeurs à set avec les données du dataset
+    setInputMinMax("expYearsSalParPlatCloud", 0, 80); // Valeurs à set avec les données du dataset
 
-// Création et ajout des options à la datalist
-    pays.forEach(param => {
-        let option = document.createElement('option');
-        option.value = param;
-        Array.from(dataListPays).forEach(dataList => dataList.appendChild(option.cloneNode(true)));
+    addInputDataList("pays-List", pays);
+    addInputDataList("metier-List", metier);
+
+    let inputsToValidate = document.querySelectorAll('.validate-datalist');
+
+    inputsToValidate.forEach(input => {
+        let dataListId = input.getAttribute('list');
+        let dataList = document.getElementById(dataListId);
+
+        if (dataList) {
+            input.addEventListener('input', function() {
+                let valid = Array.from(dataList.options).some(option => option.value === this.value);
+                this.classList.toggle('is-invalid', !valid);
+            });
+        }
     });
-
-    metier.forEach(param => {
-        let option = document.createElement('option');
-        option.value = param;
-        Array.from(dataListMetier).forEach(dataList => dataList.appendChild(option.cloneNode(true)));
-    });
-
 
 });
