@@ -164,9 +164,37 @@ function removeOptionDataList(id) {
     });
 }
 
+/**
+ * Permet de récupérer la valeur maximale de l'expérience professionnelle
+ * @param dataset
+ * @returns {*}
+ */
+function maxWorkExp(dataset) {
+    return dataset.reduce((acc, item) => {
+        if (item.WorkExp !== 'NA' && item.WorkExp > acc) {
+            acc = item.WorkExp;
+        }
+        return acc;
+    }, 0);
+}
+
+/**
+ * Permet de récupérer la valeur minimale de l'expérience professionnelle
+ * @param dataset
+ * @returns {*}
+ */
+function minWorkExp(dataset) {
+    return dataset.reduce((acc, item) => {
+        if (item.WorkExp !== 'NA' && item.WorkExp < acc) {
+            acc = item.WorkExp;
+        }
+        return acc;
+    }, 100);
+}
+
 
 
 
 
 // Exportez les fonctions pour les utiliser dans main.js
-export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList };
+export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, maxWorkExp, minWorkExp };
