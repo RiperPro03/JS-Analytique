@@ -105,7 +105,7 @@ function currencyToEur(value, currency) {
 
     let rate = exchangeRates[currency.toLowerCase()];
     if (rate) {
-        return value * rate;
+        return parseInt(value) * rate;
     } else {
         console.log("Error: la devise " + currency + " n'est pas supportée.");
         console.log(currency.toLowerCase());
@@ -253,8 +253,7 @@ function topOsCom(data, champs, pays, metier, valeurTOP=5) {
 
     let result = {};
     for (const groupeKey in groupes) {
-        const count = groupes[groupeKey].count;
-        result[groupeKey] = count;
+        result[groupeKey] = groupes[groupeKey].count;
     }
 
     // Trier par le compte décroissant
