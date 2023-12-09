@@ -139,7 +139,7 @@ function setInputMinMax(id, min, max) {
  * @param id - l'id de l'input
  * @param liste - la liste des valeurs à ajouter
  */
-function addInputDataList(id, liste) {
+function addOptionDataList(id, liste) {
     let dataListPays = document.getElementsByClassName(id);
 
     liste.forEach(param => {
@@ -149,6 +149,24 @@ function addInputDataList(id, liste) {
     });
 }
 
+/**
+ * Permet de supprimer toutes les options des éléments datalist spécifiés par leur classe
+ * @param id - l'id de l'input
+ */
+function removeOptionDataList(id) {
+    let dataListElements = document.getElementsByClassName(id);
+
+    Array.from(dataListElements).forEach(dataList => {
+        // Supprimer toutes les options du dataList
+        while (dataList.firstChild) {
+            dataList.removeChild(dataList.firstChild);
+        }
+    });
+}
+
+
+
+
 
 // Exportez les fonctions pour les utiliser dans main.js
-export {cleanDataSalary, setInputMinMax, addInputDataList };
+export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList };

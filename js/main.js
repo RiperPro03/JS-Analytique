@@ -1,14 +1,16 @@
-import {cleanDataSalary, setInputMinMax, addInputDataList } from './dataProcessor.js';
+import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList} from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
-$(document).ready(function() {
+$(document).ready(async function () {
     // Créer les datasets
     const datasetNA = new MyDataset("../../data/survey_results_NA.json"); // Chemin relatif par rapport à index.html
     const datasetWE = new MyDataset("../../data/survey_results_WE.json"); // Chemin relatif par rapport à index.html
 
     // Créer une variable globale pour stocker les données
     let datasetGlobal = [];
+    let paysGlobaux = [];
+    let metiersGlobaux = [];
 
     /**
      * Permet de supprimer des données de la variable globale datasetGlobal
@@ -27,7 +29,10 @@ $(document).ready(function() {
             let dataset = datasetIdentifier === 'NA' ? datasetNA : datasetWE;
             dataset.loadDataset();
             dataset.getData().then(data => {
-                let cleanData = cleanDataSalary(data, 1000, 1000000).map(item => ({ ...item, source: datasetIdentifier }));
+                let cleanData = cleanDataSalary(data, 1000, 1000000).map(item => ({
+                    ...item,
+                    source: datasetIdentifier
+                }));
                 removeData(datasetIdentifier);
                 datasetGlobal = [...datasetGlobal, ...cleanData];
                 console.log(datasetIdentifier + " : ", cleanData);
@@ -56,29 +61,43 @@ $(document).ready(function() {
         return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title));
     }
 
+    async function updateDataset() {
+        let selectedValue = document.getElementById('datasetSelect').value;
+        try {
+            if (selectedValue === 'NA' || selectedValue === 'BOTH') {
+                await loadData('NA');
+                let paysNA = await datasetNA.getAllPays();
+                let metiersNA = await datasetNA.getAllMetiers();
+                paysGlobaux = selectedValue === 'BOTH' ? [...paysGlobaux, ...paysNA] : paysNA;
+                metiersGlobaux = selectedValue === 'BOTH' ? [...metiersGlobaux, ...metiersNA] : metiersNA;
+            }
 
-    loadData('NA');
+            if (selectedValue === 'WE' || selectedValue === 'BOTH') {
+                await loadData('WE');
+                let paysWE = await datasetWE.getAllPays();
+                let metiersWE = await datasetWE.getAllMetiers();
+                paysGlobaux = selectedValue === 'BOTH' ? [...paysGlobaux, ...paysWE] : paysWE;
+                metiersGlobaux = selectedValue === 'BOTH' ? [...metiersGlobaux, ...metiersWE] : metiersWE;
+            }
 
-    document.getElementById('datasetSelect').addEventListener('change', function() {
-        let selectedValue = this.value;
+            // Supprimer les doublons
+            paysGlobaux = [...new Set(paysGlobaux)];
+            metiersGlobaux = [...new Set(metiersGlobaux)];
 
-        if (selectedValue === 'NA' || selectedValue === 'BOTH') {
-            loadData('NA');
-        } else {
-            removeData('NA');
+            removeOptionDataList("pays-List");
+            removeOptionDataList("metier-List");
+            addOptionDataList("pays-List", paysGlobaux);
+            addOptionDataList("metier-List", metiersGlobaux);
+
+        } catch (error) {
+            console.error("Une erreur s'est produite :", error);
         }
+    }
 
-        if (selectedValue === 'WE' || selectedValue === 'BOTH') {
-            loadData('WE');
-        } else {
-            removeData('WE');
-        }
-    });
 
-    document.getElementById('showGlobalVar').addEventListener('click', function() {
-        console.log("Global : ", datasetGlobal);
-        alert("Taille de la variable globale : " + datasetGlobal.length);
-    });
+
+    document.getElementById('datasetSelect').addEventListener('change', updateDataset);
+    await updateDataset();
 
     loadLineChart("SalParExp", [
         {
@@ -145,16 +164,9 @@ $(document).ready(function() {
     loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "TOP des outils de communication par métier");
 
 
-    // Liste des paramètres
-    let pays = ["France", "USA", "Paramètre 3", "Paramètre 4", "Paramètre 5"]; // Valeurs à set avec les données du dataset
-
-    let metier = ["Développeur", "Administrateur", "Paramètre 3", "Paramètre 4", "Paramètre 5"]; // Valeurs à set avec les données du dataset
 
     setInputMinMax("expYearsSalParFrameWork", 0, 50); // Valeurs à set avec les données du dataset
     setInputMinMax("expYearsSalParPlatCloud", 0, 80); // Valeurs à set avec les données du dataset
-
-    addInputDataList("pays-List", pays);
-    addInputDataList("metier-List", metier);
 
     let inputsToValidate = document.querySelectorAll('.validate-datalist');
 
@@ -163,7 +175,7 @@ $(document).ready(function() {
         let dataList = document.getElementById(dataListId);
 
         if (dataList) {
-            input.addEventListener('input', function() {
+            input.addEventListener('input', function () {
                 let valid = Array.from(dataList.options).some(option => option.value === this.value);
                 this.classList.toggle('is-invalid', !valid);
             });
