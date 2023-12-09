@@ -100,7 +100,7 @@ function currencyToEur(value, currency) {
     }
 
     if (currency.toLowerCase() === "eur") {
-        return value;
+        return parseInt(value);
     }
 
     let rate = exchangeRates[currency.toLowerCase()];
@@ -198,9 +198,26 @@ function minWorkExp(dataset) {
 }
 
 
+function moyenneSalaire(data, champs, pays) {
+    let groupes = {};
 
+    data.forEach(entry => {
+        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && !isNaN(entry.CompTotal)) {
+            const groupeKey = entry[champs];
+            groupes[groupeKey] = groupes[groupeKey] || { sum: 0, count: 0 };
+            groupes[groupeKey].sum += entry.CompTotal;
+            groupes[groupeKey].count += 1;
+        }
+    });
 
+    let moyennesParGroupe = {};
+    for (const groupeKey in groupes) {
+        const count = groupes[groupeKey].count;
+        moyennesParGroupe[groupeKey] = count > 0 ? groupes[groupeKey].sum / count : 0;
+    }
 
+    return moyennesParGroupe;
+}
 
 // Exportez les fonctions pour les utiliser dans main.js
-export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, maxWorkExp, minWorkExp };
+export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, maxWorkExp, minWorkExp, moyenneSalaire};

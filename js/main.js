@@ -1,4 +1,4 @@
-import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, minWorkExp, maxWorkExp} from './dataProcessor.js';
+import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, minWorkExp, maxWorkExp,moyenneSalaire} from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
@@ -144,20 +144,20 @@ $(document).ready(async function () {
         }
     ], ['Janvier', 'Février', 'Mars', 'Avril'], "Salaire moyen par année d'expérience");
 
+
+    let resultats = moyenneSalaire(datasetGlobal, "EdLevel");
+// Préparation des données pour le graphique
+    console.log(resultats);
+    let labels = Object.keys(resultats);
+    let dataValues = labels.map(label => resultats[label]);
     loadBarChart("SalParEtu", [
         {
             label: 'Dataset 1',
-            data: [10, 20, 30, 40],
+            data: dataValues,
             backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
             borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
-        },
-        {
-            label: 'Dataset 2',
-            data: [40, 30, 20, 10],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par niveau d'étude");
+    ], labels, "Salaire moyen par niveau d'étude");
 
     loadBarChart("SalParPlatCloud", [
         {
