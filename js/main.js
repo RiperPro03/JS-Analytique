@@ -128,36 +128,34 @@ $(document).ready(async function () {
             });
         }
     });
-
+    let resultatsSPE = moyenneSalaire(datasetGlobal, "WorkExp");
+// Préparation des données pour le graphique
+    console.log(resultatsSPE);
+    let labelsSPE = Object.keys(resultatsSPE);
+    let dataValuesSPE = labelsSPE.map(label => resultatsSPE[label]);
     loadLineChart("SalParExp", [
         {
             label: 'Dataset 1',
-            data: [10, 20, 30, 40],
+            data: dataValuesSPE,
             backgroundColor: 'rgba(255, 99, 132, 0.2)', // utilisé pour la couleur de la ligne
             borderColor: 'rgba(255, 99, 132, 1)' // couleur de la ligne
-        },
-        {
-            label: 'Dataset 2',
-            data: [40, 30, 20, 10],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)', // utilisé pour la couleur de la ligne
-            borderColor: 'rgba(54, 162, 235, 1)' // couleur de la ligne
         }
-    ], ['Janvier', 'Février', 'Mars', 'Avril'], "Salaire moyen par année d'expérience");
+    ],labelsSPE, "Salaire moyen par année d'expérience");
 
 
-    let resultats = moyenneSalaire(datasetGlobal, "EdLevel");
+    let resultatsSPEtu = moyenneSalaire(datasetGlobal, "EdLevel");
 // Préparation des données pour le graphique
-    console.log(resultats);
-    let labels = Object.keys(resultats);
-    let dataValues = labels.map(label => resultats[label]);
+    console.log(resultatsSPEtu);
+    let labelsSPEtu = Object.keys(resultatsSPEtu);
+    let dataValuesSPEtu = labelsSPEtu.map(label => resultatsSPEtu[label]);
     loadBarChart("SalParEtu", [
         {
             label: 'Dataset 1',
-            data: dataValues,
+            data: dataValuesSPEtu,
             backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
             borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
         }
-    ], labels, "Salaire moyen par niveau d'étude");
+    ], labelsSPEtu, "Salaire moyen par niveau d'étude");
 
     loadBarChart("SalParPlatCloud", [
         {

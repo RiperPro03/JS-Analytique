@@ -213,7 +213,7 @@ function moyenneSalaire(data, champs, pays) {
     let moyennesParGroupe = {};
     for (const groupeKey in groupes) {
         const count = groupes[groupeKey].count;
-        moyennesParGroupe[groupeKey] = count > 0 ? groupes[groupeKey].sum / count : 0;
+        moyennesParGroupe[groupeKey] = parseInt(count > 0 ? groupes[groupeKey].sum / count : 0);
     }
 
     return moyennesParGroupe;
