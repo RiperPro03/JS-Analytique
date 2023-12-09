@@ -171,12 +171,15 @@ function removeOptionDataList(id) {
  */
 function maxWorkExp(dataset) {
     return dataset.reduce((acc, item) => {
-        if (item.WorkExp !== 'NA' && item.WorkExp > acc) {
-            acc = item.WorkExp;
+        // Assurez-vous que 'WorkExp' est un nombre et pas 'NA' ou une autre valeur non numérique
+        let workExp = parseInt(item.WorkExp, 10);
+        if (!isNaN(workExp) && workExp > acc) {
+            acc = workExp;
         }
         return acc;
     }, 0);
 }
+
 
 /**
  * Permet de récupérer la valeur minimale de l'expérience professionnelle
@@ -185,12 +188,15 @@ function maxWorkExp(dataset) {
  */
 function minWorkExp(dataset) {
     return dataset.reduce((acc, item) => {
-        if (item.WorkExp !== 'NA' && item.WorkExp < acc) {
-            acc = item.WorkExp;
+        // Convertir 'WorkExp' en un nombre
+        let workExp = parseInt(item.WorkExp, 10);
+        if (!isNaN(workExp) && workExp < acc) {
+            acc = workExp;
         }
         return acc;
-    }, 100);
+    }, Infinity); // Initialiser 'acc' à 'Infinity'
 }
+
 
 
 
