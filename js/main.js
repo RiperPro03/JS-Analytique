@@ -1,4 +1,4 @@
-import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, minWorkExp, maxWorkExp,moyenneSalaire} from './dataProcessor.js';
+import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, minWorkExp, maxWorkExp,moyenneSalaire,moyenneSalairePlatFrame, topOsCom} from './dataProcessor.js';
 import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
 import { MyDataset } from './MyDataset.js';
 
@@ -157,38 +157,48 @@ $(document).ready(async function () {
         }
     ], labelsSPEtu, "Salaire moyen par niveau d'étude");
 
+
+    let resultatsSPlat = moyenneSalairePlatFrame(datasetGlobal, "PlatformHaveWorkedWith");
+// Préparation des données pour le graphique
+    console.log(resultatsSPlat);
+    let labelsSPlat = Object.keys(resultatsSPlat);
+    let dataValuesSPlat = labelsSPlat.map(label => resultatsSPlat[label]);
     loadBarChart("SalParPlatCloud", [
         {
             label: 'Dataset 1',
-            data: [10, 20, 30, 40],
+            data: dataValuesSPlat,
             backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
             borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
-        },
-        {
-            label: 'Dataset 2',
-            data: [40, 30, 20, 10],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par plateforme de cloud");
+    ], labelsSPlat, "Salaire moyen par plateforme de cloud");
 
+
+    let resultatsSFrame = moyenneSalairePlatFrame(datasetGlobal, "WebframeHaveWorkedWith");
+// Préparation des données pour le graphique
+    console.log(resultatsSFrame);
+    let labelsSFrame = Object.keys(resultatsSFrame);
+    let dataValuesSFrame = labelsSFrame.map(label => resultatsSFrame[label]);
     loadBarChart("SalParFrameWork", [
         {
             label: 'Dataset 1',
-            data: [10, 20, 30, 40],
+            data: dataValuesSFrame,
             backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
             borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
-        },
-        {
-            label: 'Dataset 2',
-            data: [40, 30, 20, 10],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)'
         }
-    ], ['Blue', 'Yellow', 'Red', 'Green'], "Salaire moyen par plateforme de FrameWork");
+    ], labelsSFrame, "Salaire moyen par plateforme de FrameWork");
 
-    loadPieChart("TopOS", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "TOP des systèmes d’exploitation par métier");
 
-    loadDoughnutChart("TopOutCom", [300, 50, 100], ['Red', 'Blue', 'Yellow'], "TOP des outils de communication par métier");
+    let resultatsTOPOs = topOsCom(datasetGlobal, "OpSysProfessionaluse");
+// Préparation des données pour le graphique
+    console.log(resultatsTOPOs);
+    let labelsTOPOs = Object.keys(resultatsTOPOs);
+    let dataValuesTOPOs = labelsTOPOs.map(label => resultatsTOPOs[label]);
+    loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier");
 
+    let resultatsTOPCom = topOsCom(datasetGlobal, "OpSysProfessionaluse");
+// Préparation des données pour le graphique
+    console.log(resultatsTOPCom);
+    let labelsTOPCom = Object.keys(resultatsTOPCom);
+    let dataValuesTOPCom = labelsTOPCom.map(label => resultatsTOPCom[label]);
+    loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier");
 });

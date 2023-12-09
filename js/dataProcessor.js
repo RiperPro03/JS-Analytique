@@ -219,5 +219,71 @@ function moyenneSalaire(data, champs, pays) {
     return moyennesParGroupe;
 }
 
+function moyenneSalairePlatFrame(data, champs, pays, anneeExp) {
+    let groupes = {};
+    let dataSplit = splitField(data,champs);
+    dataSplit.forEach(entry => {
+        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && (!anneeExp || entry.WorkExp === anneeExp) && !isNaN(entry.CompTotal)) {
+            const groupeKey = entry[champs];
+            groupes[groupeKey] = groupes[groupeKey] || { sum: 0, count: 0 };
+            groupes[groupeKey].sum += entry.CompTotal;
+            groupes[groupeKey].count += 1;
+        }
+    });
+
+    let moyennesParGroupe = {};
+    for (const groupeKey in groupes) {
+        const count = groupes[groupeKey].count;
+        moyennesParGroupe[groupeKey] = parseFloat(count > 0 ? groupes[groupeKey].sum / count : 0);
+    }
+    return moyennesParGroupe;
+}
+
+function topOsCom(data, champs, pays, metier, valeurTOP=5) {
+    let groupes = {};
+    let dataSplit = splitField(data, champs);
+
+    dataSplit.forEach(entry => {
+        if ((!pays || entry.Country === pays) && (!metier || entry.DevType === metier) && entry[champs] !== undefined) {
+            const groupeKey = entry[champs];
+            groupes[groupeKey] = groupes[groupeKey] || { count: 0 };
+            groupes[groupeKey].count += 1;
+        }
+    });
+
+    let result = {};
+    for (const groupeKey in groupes) {
+        const count = groupes[groupeKey].count;
+        result[groupeKey] = count;
+    }
+
+    // Trier par le compte décroissant
+    result = Object.fromEntries(
+        Object.entries(result).sort((a, b) => b[1] - a[1])
+    );
+
+    // Limiter aux premières valeurs TOP
+    result = Object.fromEntries(
+        Object.entries(result).slice(0, valeurTOP)
+    );
+
+    return result;
+}
+function splitField(dataset, champs) {
+    return dataset.flatMap(data => {
+        if (!data[champs]) {
+            console.error(`Le champ ${champs} n'est pas présent dans l'objet.`);
+            return [];
+        }
+
+        const values = data[champs].split(';');
+
+        return values.map(value => ({
+            ...data,
+            [champs]: value
+        }));
+    });
+}
+
 // Exportez les fonctions pour les utiliser dans main.js
-export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, maxWorkExp, minWorkExp, moyenneSalaire};
+export {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, maxWorkExp, minWorkExp, moyenneSalaire,moyenneSalairePlatFrame, topOsCom};
