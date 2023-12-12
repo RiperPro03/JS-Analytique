@@ -271,8 +271,7 @@ function topOsCom(data, champs, pays, metier, valeurTOP=5) {
 function splitField(dataset, champs) {
     return dataset.flatMap(data => {
         if (!data[champs]) {
-            console.error(`Le champ ${champs} n'est pas présent dans l'objet.`);
-            return [];
+            return [data];
         }
 
         const values = data[champs].split(';');

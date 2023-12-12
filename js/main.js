@@ -71,16 +71,16 @@ $(document).ready(async function () {
         return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
     }
 
-    function loadPieChart(id, data, labels, title) {
-        return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title));
+    function loadPieChart(id, data, labels, title,detail) {
+        return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title,detail));
     }
 
     function loadLineChart(id, data, labels, title) {
         return new Chart(document.getElementById(id).getContext('2d'), getLineChartConfig(data, labels, title));
     }
 
-    function loadDoughnutChart(id, data, labels, title) {
-        return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title));
+    function loadDoughnutChart(id, data, labels, title,detail) {
+        return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title,detail));
     }
 
     async function updateDataset() {
@@ -222,10 +222,10 @@ $(document).ready(async function () {
     let dataValuesSPE = labelsSPE.map(label => resultatsSPE[label]);
     let SalParExp = loadLineChart("SalParExp", [
         {
-            label: 'Dataset 1',
+            label: 'Salaire moyen',
             data: dataValuesSPE,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)', // utilisé pour la couleur de la ligne
-            borderColor: 'rgba(255, 99, 132, 1)' // couleur de la ligne
+            backgroundColor: 'rgba(135, 206, 250, 0.75)',
+            borderColor: 'rgba(70, 130, 180, 1)'
         }
     ],labelsSPE, "Salaire moyen par année d'expérience");
 
@@ -236,10 +236,10 @@ $(document).ready(async function () {
     let dataValuesSPEtu = labelsSPEtu.map(label => resultatsSPEtu[label]);
     let SalParEtu = loadBarChart("SalParEtu", [
         {
-            label: 'Dataset 1',
+            label: 'Salaire moyen',
             data: dataValuesSPEtu,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
-            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+            backgroundColor: 'rgba(135, 206, 250, 0.75)',
+            borderColor: 'rgba(70, 130, 180, 1)'
         }
     ], labelsSPEtu, "Salaire moyen par niveau d'étude");
 
@@ -251,10 +251,10 @@ $(document).ready(async function () {
     let dataValuesSPlat = labelsSPlat.map(label => resultatsSPlat[label]);
     let SalParPlatCloud = loadBarChart("SalParPlatCloud", [
         {
-            label: 'Dataset 1',
+            label: 'Salaire moyen',
             data: dataValuesSPlat,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
-            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+            backgroundColor: 'rgba(135, 206, 250, 0.75)',
+            borderColor: 'rgba(70, 130, 180, 1)'
         }
     ], labelsSPlat, "Salaire moyen par plateforme de cloud");
 
@@ -266,10 +266,10 @@ $(document).ready(async function () {
     let dataValuesSFrame = labelsSFrame.map(label => resultatsSFrame[label]);
     let SalParFrameWork = loadBarChart("SalParFrameWork", [
         {
-            label: 'Dataset 1',
+            label: 'Salaire moyen',
             data: dataValuesSFrame,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)', // couleur de fond personnalisée pour ce dataset
-            borderColor: 'rgba(255, 99, 132, 1)' // couleur de bordure personnalisée pour ce dataset
+            backgroundColor: 'rgba(135, 206, 250, 0.75)',
+            borderColor: 'rgba(70, 130, 180, 1)'
         }
     ], labelsSFrame, "Salaire moyen par plateforme de FrameWork");
 
@@ -279,14 +279,14 @@ $(document).ready(async function () {
     let resultatsTOPOs = topOsCom(datasetGlobal, "OpSysProfessionaluse");
     let labelsTOPOs = Object.keys(resultatsTOPOs);
     let dataValuesTOPOs = labelsTOPOs.map(label => resultatsTOPOs[label]);
-    let TopOS = loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier");
+    let TopOS = loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier","Nombre d'utilisation");
 
     addListenerToInput3('parameterSearchTopOS', 'parameterSearchTopOS2', 'dropdownMenuTopOS', 'OpSysProfessionaluse', TopOS);
 
-    let resultatsTOPCom = topOsCom(datasetGlobal, "OpSysProfessionaluse");
+    let resultatsTOPCom = topOsCom(datasetGlobal, "OfficeStackSyncHaveWorkedWith");
     let labelsTOPCom = Object.keys(resultatsTOPCom);
     let dataValuesTOPCom = labelsTOPCom.map(label => resultatsTOPCom[label]);
-    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier");
+    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier","Nombre d'utilisation");
 
-    addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OpSysProfessionaluse', TopOutCom);
+    addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OfficeStackSyncHaveWorkedWith', TopOutCom);
 });
