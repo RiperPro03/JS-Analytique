@@ -1,6 +1,21 @@
-import {cleanDataSalary, setInputMinMax, addOptionDataList, removeOptionDataList, minWorkExp, maxWorkExp,moyenneSalaire,moyenneSalairePlatFrame, topOsCom} from './dataProcessor.js';
-import {getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig } from './chartConfigurations.js';
-import { MyDataset } from './MyDataset.js';
+import {
+    addOptionDataList,
+    cleanDataSalary,
+    maxWorkExp,
+    minWorkExp,
+    moyenneSalaire,
+    moyenneSalairePlatFrame,
+    removeOptionDataList,
+    setInputMinMax,
+    topOsCom
+} from './dataProcessor.js';
+import {
+    getBarChartConfig,
+    getDoughnutChartConfig,
+    getLineChartConfig,
+    getPieChartConfig
+} from './chartConfigurations.js';
+import {MyDataset} from './MyDataset.js';
 
 $(document).ready(async function () {
     // Créer les datasets
@@ -11,7 +26,7 @@ $(document).ready(async function () {
     const MAX_SALARY = 1000000;
     const MIN_SALARY = 1000;
 
-    // Créer une variable globale pour stocker les données
+    // Créer les variables globales
     let datasetGlobal = [];
     let paysGlobaux = [];
     let metiersGlobaux = [];
@@ -128,12 +143,84 @@ $(document).ready(async function () {
             });
         }
     });
+
+    function addListenerToInput1(id, champs, graphVar) {
+        document.getElementById(id).addEventListener('change', () => {
+            if (document.getElementById(id).checkValidity()) {
+                let resultats = moyenneSalaire(datasetGlobal, champs, document.getElementById(id).value);
+                let labels = Object.keys(resultats);
+
+                graphVar.data.datasets[0].data = labels.map(label => resultats[label]);
+                graphVar.data.labels = labels;
+                graphVar.update();
+            }
+        });
+    }
+
+    function addListenerToInput2(id_pays, id_exp, champs, graphVar) {
+        function updateGraph() {
+            let resultats;
+            let labels;
+
+            const paysValid = document.getElementById(id_pays).checkValidity();
+            const expValid = document.getElementById(id_exp).checkValidity();
+
+            if (paysValid && expValid) {
+                resultats = moyenneSalairePlatFrame(datasetGlobal, champs, document.getElementById(id_pays).value, document.getElementById(id_exp).value);
+            } else if (document.getElementById(id_pays).checkValidity()) {
+                resultats = moyenneSalairePlatFrame(datasetGlobal, champs, document.getElementById(id_pays).value);
+            }
+
+            if (resultats) {
+                labels = Object.keys(resultats);
+                graphVar.data.datasets[0].data = labels.map(label => resultats[label]);
+                graphVar.data.labels = labels;
+                graphVar.update();
+            }
+        }
+
+        document.getElementById(id_pays).addEventListener('change', updateGraph);
+        document.getElementById(id_exp).addEventListener('change', updateGraph);
+    }
+
+    function addListenerToInput3(id_pays, id_metier, id_top, champs, graphVar) {
+        function updateGraph() {
+            let resultats;
+            let labels;
+
+            const paysValid = document.getElementById(id_pays).checkValidity();
+            const metierValid = document.getElementById(id_metier).checkValidity();
+            const topValue = document.getElementById(id_top).value;
+
+            if (paysValid && metierValid) {
+                resultats = topOsCom(datasetGlobal, champs, document.getElementById(id_pays).value, document.getElementById(id_metier).value, topValue);
+            } else if (paysValid) {
+                resultats = topOsCom(datasetGlobal, champs, document.getElementById(id_pays).value, null, topValue);
+            } else if (metierValid) {
+                resultats = topOsCom(datasetGlobal, champs, null,document.getElementById(id_metier).value, topValue);
+            }
+
+            if (resultats) {
+                labels = Object.keys(resultats).slice(0, topValue); // Récupère les 'top' éléments
+                graphVar.data.datasets[0].data = labels.map(label => resultats[label]);
+                graphVar.data.labels = labels;
+                graphVar.update();
+            }
+        }
+
+        document.getElementById(id_pays).addEventListener('change', updateGraph);
+        document.getElementById(id_metier).addEventListener('change', updateGraph);
+        document.getElementById(id_top).addEventListener('change', updateGraph);
+    }
+
+
+
     let resultatsSPE = moyenneSalaire(datasetGlobal, "WorkExp");
 // Préparation des données pour le graphique
     console.log(resultatsSPE);
     let labelsSPE = Object.keys(resultatsSPE);
     let dataValuesSPE = labelsSPE.map(label => resultatsSPE[label]);
-    loadLineChart("SalParExp", [
+    let SalParExp = loadLineChart("SalParExp", [
         {
             label: 'Dataset 1',
             data: dataValuesSPE,
@@ -142,13 +229,12 @@ $(document).ready(async function () {
         }
     ],labelsSPE, "Salaire moyen par année d'expérience");
 
+    addListenerToInput1('parameterSearchSalParExp', 'WorkExp', SalParExp);
 
     let resultatsSPEtu = moyenneSalaire(datasetGlobal, "EdLevel");
-// Préparation des données pour le graphique
-    console.log(resultatsSPEtu);
     let labelsSPEtu = Object.keys(resultatsSPEtu);
     let dataValuesSPEtu = labelsSPEtu.map(label => resultatsSPEtu[label]);
-    loadBarChart("SalParEtu", [
+    let SalParEtu = loadBarChart("SalParEtu", [
         {
             label: 'Dataset 1',
             data: dataValuesSPEtu,
@@ -157,13 +243,13 @@ $(document).ready(async function () {
         }
     ], labelsSPEtu, "Salaire moyen par niveau d'étude");
 
+    addListenerToInput1('parameterSearchSalParEtu', 'EdLevel', SalParEtu);
+
 
     let resultatsSPlat = moyenneSalairePlatFrame(datasetGlobal, "PlatformHaveWorkedWith");
-// Préparation des données pour le graphique
-    console.log(resultatsSPlat);
     let labelsSPlat = Object.keys(resultatsSPlat);
     let dataValuesSPlat = labelsSPlat.map(label => resultatsSPlat[label]);
-    loadBarChart("SalParPlatCloud", [
+    let SalParPlatCloud = loadBarChart("SalParPlatCloud", [
         {
             label: 'Dataset 1',
             data: dataValuesSPlat,
@@ -172,13 +258,13 @@ $(document).ready(async function () {
         }
     ], labelsSPlat, "Salaire moyen par plateforme de cloud");
 
+    addListenerToInput2('parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud', 'PlatformHaveWorkedWith', SalParPlatCloud);
+
 
     let resultatsSFrame = moyenneSalairePlatFrame(datasetGlobal, "WebframeHaveWorkedWith");
-// Préparation des données pour le graphique
-    console.log(resultatsSFrame);
     let labelsSFrame = Object.keys(resultatsSFrame);
     let dataValuesSFrame = labelsSFrame.map(label => resultatsSFrame[label]);
-    loadBarChart("SalParFrameWork", [
+    let SalParFrameWork = loadBarChart("SalParFrameWork", [
         {
             label: 'Dataset 1',
             data: dataValuesSFrame,
@@ -187,18 +273,20 @@ $(document).ready(async function () {
         }
     ], labelsSFrame, "Salaire moyen par plateforme de FrameWork");
 
+    addListenerToInput2('parameterSalParFrameWork', 'expYearsSalParFrameWork', 'WebframeHaveWorkedWith', SalParFrameWork);
+
 
     let resultatsTOPOs = topOsCom(datasetGlobal, "OpSysProfessionaluse");
-// Préparation des données pour le graphique
-    console.log(resultatsTOPOs);
     let labelsTOPOs = Object.keys(resultatsTOPOs);
     let dataValuesTOPOs = labelsTOPOs.map(label => resultatsTOPOs[label]);
-    loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier");
+    let TopOS = loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier");
+
+    addListenerToInput3('parameterSearchTopOS', 'parameterSearchTopOS2', 'dropdownMenuTopOS', 'OpSysProfessionaluse', TopOS);
 
     let resultatsTOPCom = topOsCom(datasetGlobal, "OpSysProfessionaluse");
-// Préparation des données pour le graphique
-    console.log(resultatsTOPCom);
     let labelsTOPCom = Object.keys(resultatsTOPCom);
     let dataValuesTOPCom = labelsTOPCom.map(label => resultatsTOPCom[label]);
-    loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier");
+    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier");
+
+    addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OpSysProfessionaluse', TopOutCom);
 });
