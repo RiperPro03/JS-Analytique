@@ -202,7 +202,7 @@ function moyenneSalaire(data, champs, pays) {
     let groupes = {};
 
     data.forEach(entry => {
-        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && !isNaN(entry.CompTotal)) {
+        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && entry[champs] !== "NA" &&!isNaN(entry.CompTotal)) {
             const groupeKey = entry[champs];
             groupes[groupeKey] = groupes[groupeKey] || { sum: 0, count: 0 };
             groupes[groupeKey].sum += entry.CompTotal;
@@ -223,7 +223,7 @@ function moyenneSalairePlatFrame(data, champs, pays, anneeExp) {
     let groupes = {};
     let dataSplit = splitField(data,champs);
     dataSplit.forEach(entry => {
-        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && (!anneeExp || entry.WorkExp === anneeExp) && !isNaN(entry.CompTotal)) {
+        if ((!pays || entry.Country === pays) && entry[champs] !== undefined && entry[champs] !== "NA" && (!anneeExp || entry.WorkExp === anneeExp) && !isNaN(entry.CompTotal)) {
             const groupeKey = entry[champs];
             groupes[groupeKey] = groupes[groupeKey] || { sum: 0, count: 0 };
             groupes[groupeKey].sum += entry.CompTotal;
@@ -244,7 +244,7 @@ function topOsCom(data, champs, pays, metier, valeurTOP=5) {
     let dataSplit = splitField(data, champs);
 
     dataSplit.forEach(entry => {
-        if ((!pays || entry.Country === pays) && (!metier || entry.DevType === metier) && entry[champs] !== undefined) {
+        if ((!pays || entry.Country === pays) && (!metier || entry.DevType === metier) && entry[champs] !== undefined && entry[champs] !== "NA" ) {
             const groupeKey = entry[champs];
             groupes[groupeKey] = groupes[groupeKey] || { count: 0 };
             groupes[groupeKey].count += 1;
