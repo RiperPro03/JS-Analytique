@@ -2,6 +2,63 @@
  * Ce fichier contient les fonctions qui retournent des configurations de graphique
  */
 
+/**
+ * Permet de créer un graphique de type 'bar'
+ * @param id - l'id du graphique
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @returns {Chart}
+ */
+function createBarChart(id, data, labels, title) {
+    return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
+}
+
+/**
+ * Permet de créer un graphique de type 'pie'
+ * @param id - l'id du graphique
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @param detail - le détail du graphique
+ * @returns {Chart}
+ */
+function createPieChart(id, data, labels, title,detail) {
+    return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title,detail));
+}
+
+/**
+ * Permet de créer un graphique de type 'line'
+ * @param id - l'id du graphique
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @returns {Chart}
+ */
+function createLineChart(id, data, labels, title) {
+    return new Chart(document.getElementById(id).getContext('2d'), getLineChartConfig(data, labels, title));
+}
+
+/**
+ * Permet de créer un graphique de type 'doughnut'
+ * @param id - l'id du graphique
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @param detail - le détail du graphique
+ * @returns {Chart}
+ */
+function createDoughnutChart(id, data, labels, title,detail) {
+    return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title,detail));
+}
+
+/**
+ * Permet de récupérer la configuration d'un graphique de type 'bar'
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @returns {{data: {datasets: *, labels}, options: {plugins: {legend: {display: boolean, position: string, labels: {font: {size: number}}}, tooltip: {mode: string, intersect: boolean}, title: {display: boolean, text, font: {size: number}}}, responsive: boolean, scales: {x: {ticks: {autoSkip: boolean, font: {size: number}}}, y: {ticks: {font: {size: number}}, beginAtZero: boolean}}}, type: string}}
+ */
 function getBarChartConfig(data, labels, title) {
     return {
         type: 'bar',
@@ -58,7 +115,14 @@ function getBarChartConfig(data, labels, title) {
     };
 }
 
-
+/**
+ * Permet de récupérer la configuration d'un graphique de type 'pie'
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @param detail - le détail du graphique
+ * @returns {{data: {datasets: [{backgroundColor: string[], borderColor: string[], data, borderWidth: number, label}], labels}, options: {plugins: {legend: {position: string}, title: {display: boolean, text}}, responsive: boolean}, type: string}}
+ */
 function getPieChartConfig(data, labels, title,detail) {
     return {
         type: 'pie',
@@ -105,7 +169,13 @@ function getPieChartConfig(data, labels, title,detail) {
     };
 }
 
-
+/**
+ * Permet de récupérer la configuration d'un graphique de type 'line'
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @returns {{data: {datasets: *, labels}, options: {plugins: {legend: {display: boolean, position: string}, tooltip: {mode: string, intersect: boolean}, title: {display: boolean, text}}, responsive: boolean, scales: {y: {beginAtZero: boolean}}}, type: string}}
+ */
 function getLineChartConfig(data, labels, title) {
     return {
         type: 'line',
@@ -144,6 +214,14 @@ function getLineChartConfig(data, labels, title) {
     };
 }
 
+/**
+ * Permet de récupérer la configuration d'un graphique de type 'doughnut'
+ * @param data - les données du graphique
+ * @param labels - les labels du graphique
+ * @param title - le titre du graphique
+ * @param detail - le détail du graphique
+ * @returns {{data: {datasets: [{backgroundColor: string[], borderColor: string[], data, borderWidth: number, label}], labels}, options: {plugins: {legend: {position: string}, title: {display: boolean, text}}, responsive: boolean}, type: string}}
+ */
 function getDoughnutChartConfig(data, labels, title, detail) {
     return {
         type: 'doughnut',
@@ -192,5 +270,5 @@ function getDoughnutChartConfig(data, labels, title, detail) {
 
 
 // Exportez la fonction pour l'utiliser dans main.js
-export { getBarChartConfig, getPieChartConfig, getLineChartConfig, getDoughnutChartConfig };
+export {createBarChart, createDoughnutChart, createLineChart, createPieChart };
 
