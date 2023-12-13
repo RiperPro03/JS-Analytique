@@ -28,5 +28,5 @@ Pour mettre en place et utiliser JS-Analytique, suivez ces étapes simples :
   - Placez les fichiers de données de l'enquête StackOverflow dans le dossier data.
 
 - Paramétrage du Chemin d'Accès aux Données :
-  - Ouvrez le fichier main.js.
-  - Modifiez les lignes 22 et 23 pour configurer les chemins d'accès aux fichiers de données. Les constantes `datasetNA` et `datasetWE` représentent respectivement les ensembles de données pour l'Amérique du Nord et l'Europe de l'Ouest.
+  - Ouvrez le fichier config.js.
+  - Modifiez les lignes 6 et 7 pour configurer les chemins d'accès aux fichiers de données. Les constantes `datasetNA_Path` et `datasetWE_Path`.

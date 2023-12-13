@@ -15,12 +15,13 @@ import {
     createLineChart,
     createPieChart
 } from './chartConfigurations.js';
+import CONFIG from "./config";
 import {MyDataset} from './MyDataset.js';
 
 $(document).ready(async function () {
     // Créer les datasets
-    const datasetNA = new MyDataset("../../data/survey_results_NA.json"); // Chemin relatif par rapport à index.html
-    const datasetWE = new MyDataset("../../data/survey_results_WE.json"); // Chemin relatif par rapport à index.html
+    const datasetNA = new MyDataset(CONFIG.datasetNA_Path); // Chemin relatif par rapport à index.html
+    const datasetWE = new MyDataset(CONFIG.datasetWE_Path); // Chemin relatif par rapport à index.html
 
     // Définir les constantes pour prendre en compte que les salaires entre 1000 et 1000000 pour avoir des données pertinentes
     const MAX_SALARY = 1000000;
