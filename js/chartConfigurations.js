@@ -17,11 +17,19 @@ function getBarChartConfig(data, labels, title) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title,
+                    font: {
+                        size: 18
+                    }
                 },
                 tooltip: {
                     mode: 'index',
@@ -30,7 +38,20 @@ function getBarChartConfig(data, labels, title) {
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 11
+                        },
+                        autoSkip: true,
+                    }
                 }
             }
         }
