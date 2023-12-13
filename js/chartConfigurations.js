@@ -57,7 +57,7 @@ function createDoughnutChart(id, data, labels, title,detail) {
  * @param data - les données du graphique
  * @param labels - les labels du graphique
  * @param title - le titre du graphique
- * @returns {{data: {datasets: *, labels}, options: {plugins: {legend: {display: boolean, position: string, labels: {font: {size: number}}}, tooltip: {mode: string, intersect: boolean}, title: {display: boolean, text, font: {size: number}}}, responsive: boolean, scales: {x: {ticks: {autoSkip: boolean, font: {size: number}}}, y: {ticks: {font: {size: number}}, beginAtZero: boolean}}}, type: string}}
+ * @returns - la configuration du graphique
  */
 function getBarChartConfig(data, labels, title) {
     return {
@@ -121,7 +121,7 @@ function getBarChartConfig(data, labels, title) {
  * @param labels - les labels du graphique
  * @param title - le titre du graphique
  * @param detail - le détail du graphique
- * @returns {{data: {datasets: [{backgroundColor: string[], borderColor: string[], data, borderWidth: number, label}], labels}, options: {plugins: {legend: {position: string}, title: {display: boolean, text}}, responsive: boolean}, type: string}}
+ * @returns - la configuration du graphique
  */
 function getPieChartConfig(data, labels, title,detail) {
     return {
@@ -174,7 +174,7 @@ function getPieChartConfig(data, labels, title,detail) {
  * @param data - les données du graphique
  * @param labels - les labels du graphique
  * @param title - le titre du graphique
- * @returns {{data: {datasets: *, labels}, options: {plugins: {legend: {display: boolean, position: string}, tooltip: {mode: string, intersect: boolean}, title: {display: boolean, text}}, responsive: boolean, scales: {y: {beginAtZero: boolean}}}, type: string}}
+ * @returns  - la configuration du graphique
  */
 function getLineChartConfig(data, labels, title) {
     return {
@@ -220,7 +220,7 @@ function getLineChartConfig(data, labels, title) {
  * @param labels - les labels du graphique
  * @param title - le titre du graphique
  * @param detail - le détail du graphique
- * @returns {{data: {datasets: [{backgroundColor: string[], borderColor: string[], data, borderWidth: number, label}], labels}, options: {plugins: {legend: {position: string}, title: {display: boolean, text}}, responsive: boolean}, type: string}}
+ * @returns  - la configuration du graphique
  */
 function getDoughnutChartConfig(data, labels, title, detail) {
     return {

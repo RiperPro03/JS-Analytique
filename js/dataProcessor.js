@@ -197,7 +197,13 @@ function minWorkExp(dataset) {
     }, Infinity); // Initialiser 'acc' à 'Infinity'
 }
 
-
+/**
+ * Permet de calculer la moyenne des salaires par champs
+ * @param data - les données
+ * @param champs - le champs
+ * @param pays - le pays
+ * @returns {{}}
+ */
 function moyenneSalaire(data, champs, pays) {
     let groupes = {};
 
@@ -219,6 +225,14 @@ function moyenneSalaire(data, champs, pays) {
     return moyennesParGroupe;
 }
 
+/**
+ * Permet de calculer la moyenne des salaires par champs pour plateforme cloud et framework
+ * @param data - les données
+ * @param champs - le champs
+ * @param pays - le pays
+ * @param anneeExp - l'année d'expérience
+ * @returns {{}}
+ */
 function moyenneSalairePlatFrame(data, champs, pays, anneeExp) {
     let groupes = {};
     let dataSplit = splitField(data,champs);
@@ -239,6 +253,15 @@ function moyenneSalairePlatFrame(data, champs, pays, anneeExp) {
     return moyennesParGroupe;
 }
 
+/**
+ * Permet de calculer le top des OS les plus utilisés et des outils de communication
+ * @param data - les données
+ * @param champs - le champs
+ * @param pays - le pays
+ * @param metier - le métier
+ * @param valeurTOP - le nombre de valeur TOP
+ * @returns {{[p: string]: any}}
+ */
 function topOsCom(data, champs, pays, metier, valeurTOP=5) {
     let groupes = {};
     let dataSplit = splitField(data, champs);
@@ -268,6 +291,13 @@ function topOsCom(data, champs, pays, metier, valeurTOP=5) {
 
     return result;
 }
+
+/**
+ * Permet de séparer les champs qui sont séparés par ';'
+ * @param dataset - les données
+ * @param champs - le champs
+ * @returns {any[]}
+ */
 function splitField(dataset, champs) {
     return dataset.flatMap(data => {
         if (!data[champs]) {
