@@ -159,10 +159,18 @@ function getPieChartConfig(data, labels, title,detail) {
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title,
+                    font: {
+                        size: 18
+                    }
                 }
             }
         },
@@ -194,20 +202,33 @@ function getLineChartConfig(data, labels, title) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title,
+                    font: {
+                        size: 18
+                    }
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false
-                }
+                },
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 12
+                        }
+                    }
                 }
             }
         }
@@ -258,10 +279,18 @@ function getDoughnutChartConfig(data, labels, title, detail) {
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title,
+                    font: {
+                        size: 18
+                    }
                 }
             }
         },
