@@ -30,6 +30,3 @@ Pour mettre en place et utiliser JS-Analytique, suivez ces étapes simples :
 - Paramétrage du Chemin d'Accès aux Données :
   - Ouvrez le fichier main.js.
   - Modifiez les lignes 22 et 23 pour configurer les chemins d'accès aux fichiers de données. Les constantes `datasetNA` et `datasetWE` représentent respectivement les ensembles de données pour l'Amérique du Nord et l'Europe de l'Ouest.
-
-
-    
