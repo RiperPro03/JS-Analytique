@@ -67,19 +67,19 @@ $(document).ready(async function () {
     }
 
 
-    function loadBarChart(id, data, labels, title) {
+    function createBarChart(id, data, labels, title) {
         return new Chart(document.getElementById(id).getContext('2d'), getBarChartConfig(data, labels, title));
     }
 
-    function loadPieChart(id, data, labels, title,detail) {
+    function createPieChart(id, data, labels, title,detail) {
         return new Chart(document.getElementById(id).getContext('2d'), getPieChartConfig(data, labels, title,detail));
     }
 
-    function loadLineChart(id, data, labels, title) {
+    function createLineChart(id, data, labels, title) {
         return new Chart(document.getElementById(id).getContext('2d'), getLineChartConfig(data, labels, title));
     }
 
-    function loadDoughnutChart(id, data, labels, title,detail) {
+    function createDoughnutChart(id, data, labels, title,detail) {
         return new Chart(document.getElementById(id).getContext('2d'), getDoughnutChartConfig(data, labels, title,detail));
     }
 
@@ -120,6 +120,9 @@ $(document).ready(async function () {
             setInputMinMax("expYearsSalParFrameWork", minWorkExpV, maxWorkExpV);
             setInputMinMax("expYearsSalParPlatCloud", minWorkExpV, maxWorkExpV);
 
+            const resetButtons = document.querySelectorAll('.reset-button');
+            resetButtons.forEach(button => button.click());
+
         } catch (error) {
             console.error("Une erreur s'est produite :", error);
         }
@@ -144,10 +147,23 @@ $(document).ready(async function () {
         }
     });
 
-    function addListenerToInput1(id, champs, graphVar) {
+    function msgErrorGraph(graphVar, dataObject, errorMessageElementId) {
+        const isEmptyData = Object.keys(dataObject).length === 0;
+
+        if (isEmptyData) {
+            document.getElementById(errorMessageElementId).style.display = "block";
+            if (graphVar) graphVar.canvas.style.display = "none";
+        } else {
+            document.getElementById(errorMessageElementId).style.display = "none";
+            if (graphVar) graphVar.canvas.style.display = "block";
+        }
+    }
+
+    function addListenerToInput1(id, champs, graphVar, errorMessageElementId) {
         document.getElementById(id).addEventListener('change', () => {
             if (document.getElementById(id).checkValidity()) {
                 let resultats = moyenneSalaire(datasetGlobal, champs, document.getElementById(id).value);
+                msgErrorGraph(graphVar, resultats, errorMessageElementId);
                 let labels = Object.keys(resultats);
 
                 graphVar.data.datasets[0].data = labels.map(label => resultats[label]);
@@ -157,7 +173,7 @@ $(document).ready(async function () {
         });
     }
 
-    function addListenerToInput2(id_pays, id_exp, champs, graphVar) {
+    function addListenerToInput2(id_pays, id_exp, champs, graphVar, errorMessageElementId) {
         function updateGraph() {
             let resultats;
             let labels;
@@ -177,13 +193,14 @@ $(document).ready(async function () {
                 graphVar.data.labels = labels;
                 graphVar.update();
             }
+            msgErrorGraph(graphVar, resultats, errorMessageElementId);
         }
 
         document.getElementById(id_pays).addEventListener('change', updateGraph);
         document.getElementById(id_exp).addEventListener('change', updateGraph);
     }
 
-    function addListenerToInput3(id_pays, id_metier, id_top, champs, graphVar) {
+    function addListenerToInput3(id_pays, id_metier, id_top, champs, graphVar, errorMessageElementId) {
         function updateGraph() {
             let resultats;
             let labels;
@@ -206,6 +223,7 @@ $(document).ready(async function () {
                 graphVar.data.labels = labels;
                 graphVar.update();
             }
+            msgErrorGraph(graphVar, resultats, errorMessageElementId);
         }
 
         document.getElementById(id_pays).addEventListener('change', updateGraph);
@@ -213,14 +231,26 @@ $(document).ready(async function () {
         document.getElementById(id_top).addEventListener('change', updateGraph);
     }
 
+    function setupResetButton(buttonId, inputIds) {
+        const resetButton = document.getElementById(buttonId);
+        if (resetButton) {
+            resetButton.addEventListener('click', function() {
+                inputIds.forEach(function(inputId) {
+                    const inputElement = document.getElementById(inputId);
+                    if (inputElement) {
+                        inputElement.value = '';
+                        inputElement.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+        }
+    }
 
 
     let resultatsSPE = moyenneSalaire(datasetGlobal, "WorkExp");
-// Préparation des données pour le graphique
-    console.log(resultatsSPE);
     let labelsSPE = Object.keys(resultatsSPE);
     let dataValuesSPE = labelsSPE.map(label => resultatsSPE[label]);
-    let SalParExp = loadLineChart("SalParExp", [
+    let SalParExp = createLineChart("SalParExp", [
         {
             label: 'Salaire moyen',
             data: dataValuesSPE,
@@ -228,13 +258,14 @@ $(document).ready(async function () {
             borderColor: 'rgba(246, 200, 95, 1)'
         }
     ],labelsSPE, "Salaire moyen par année d'expérience");
-
-    addListenerToInput1('parameterSearchSalParExp', 'WorkExp', SalParExp);
+    msgErrorGraph(SalParExp, resultatsSPE, 'ErrorSalParExp');
+    addListenerToInput1('parameterSearchSalParExp', 'WorkExp', SalParExp, 'ErrorSalParExp');
+    setupResetButton('resetButtonSalParExp', ['parameterSearchSalParExp']);
 
     let resultatsSPEtu = moyenneSalaire(datasetGlobal, "EdLevel");
     let labelsSPEtu = Object.keys(resultatsSPEtu);
     let dataValuesSPEtu = labelsSPEtu.map(label => resultatsSPEtu[label]);
-    let SalParEtu = loadBarChart("SalParEtu", [
+    let SalParEtu = createBarChart("SalParEtu", [
         {
             label: 'Salaire moyen',
             data: dataValuesSPEtu,
@@ -242,14 +273,15 @@ $(document).ready(async function () {
             borderColor: 'rgba(70, 130, 180, 1)'
         }
     ], labelsSPEtu, "Salaire moyen par niveau d'étude");
-
-    addListenerToInput1('parameterSearchSalParEtu', 'EdLevel', SalParEtu);
+    msgErrorGraph(SalParEtu, resultatsSPEtu, 'ErrorSalParEtu');
+    addListenerToInput1('parameterSearchSalParEtu', 'EdLevel', SalParEtu, 'ErrorSalParEtu');
+    setupResetButton('resetButtonSalParEtu', ['parameterSearchSalParEtu']);
 
 
     let resultatsSPlat = moyenneSalairePlatFrame(datasetGlobal, "PlatformHaveWorkedWith");
     let labelsSPlat = Object.keys(resultatsSPlat);
     let dataValuesSPlat = labelsSPlat.map(label => resultatsSPlat[label]);
-    let SalParPlatCloud = loadBarChart("SalParPlatCloud", [
+    let SalParPlatCloud = createBarChart("SalParPlatCloud", [
         {
             label: 'Salaire moyen',
             data: dataValuesSPlat,
@@ -257,14 +289,15 @@ $(document).ready(async function () {
             borderColor: 'rgba(11, 132, 165, 1)'
         }
     ], labelsSPlat, "Salaire moyen par plateforme de cloud");
-
-    addListenerToInput2('parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud', 'PlatformHaveWorkedWith', SalParPlatCloud);
+    msgErrorGraph(SalParPlatCloud, resultatsSPlat, 'ErrorSalParPlatCloud');
+    addListenerToInput2('parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud', 'PlatformHaveWorkedWith', SalParPlatCloud, 'ErrorSalParPlatCloud');
+    setupResetButton('resetButtonSalParPlatCloud', ['parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud']);
 
 
     let resultatsSFrame = moyenneSalairePlatFrame(datasetGlobal, "WebframeHaveWorkedWith");
     let labelsSFrame = Object.keys(resultatsSFrame);
     let dataValuesSFrame = labelsSFrame.map(label => resultatsSFrame[label]);
-    let SalParFrameWork = loadBarChart("SalParFrameWork", [
+    let SalParFrameWork = createBarChart("SalParFrameWork", [
         {
             label: 'Salaire moyen',
             data: dataValuesSFrame,
@@ -272,19 +305,24 @@ $(document).ready(async function () {
             borderColor: 'rgba(24, 173, 89, 1)'
         }
     ], labelsSFrame, "Salaire moyen par plateforme de FrameWork");
-
-    addListenerToInput2('parameterSalParFrameWork', 'expYearsSalParFrameWork', 'WebframeHaveWorkedWith', SalParFrameWork);
+    msgErrorGraph(SalParFrameWork, resultatsSFrame, 'ErrorSalParFrameWork');
+    addListenerToInput2('parameterSalParFrameWork', 'expYearsSalParFrameWork', 'WebframeHaveWorkedWith', SalParFrameWork, 'ErrorSalParFrameWork');
+    setupResetButton('resetButtonSalParFrameWork', ['parameterSalParFrameWork', 'expYearsSalParFrameWork']);
 
 
     let resultatsTOPOs = topOsCom(datasetGlobal, "OpSysProfessionaluse");
     let labelsTOPOs = Object.keys(resultatsTOPOs);
     let dataValuesTOPOs = labelsTOPOs.map(label => resultatsTOPOs[label]);
-    let TopOS = loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier","Nombre d'utilisation");
-    addListenerToInput3('parameterSearchTopOS', 'parameterSearchTopOS2', 'dropdownMenuTopOS', 'OpSysProfessionaluse', TopOS);
+    let TopOS = createPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier","Nombre d'utilisation");
+    msgErrorGraph(TopOS, resultatsTOPOs, 'ErrorTopOS');
+    addListenerToInput3('parameterSearchTopOS', 'parameterSearchTopOS2', 'dropdownMenuTopOS', 'OpSysProfessionaluse', TopOS, 'ErrorTopOS');
+    setupResetButton('resetButtonTopOS', ['parameterSearchTopOS', 'parameterSearchTopOS2']);
 
     let resultatsTOPCom = topOsCom(datasetGlobal, "OfficeStackSyncHaveWorkedWith");
     let labelsTOPCom = Object.keys(resultatsTOPCom);
     let dataValuesTOPCom = labelsTOPCom.map(label => resultatsTOPCom[label]);
-    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier", "Nombre d'utilisation");
-    addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OfficeStackSyncHaveWorkedWith', TopOutCom);
+    let TopOutCom = createDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier", "Nombre d'utilisation");
+    msgErrorGraph(TopOutCom, resultatsTOPCom, 'ErrorTopOutCom');
+    addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OfficeStackSyncHaveWorkedWith', TopOutCom, 'ErrorTopOutCom');
+    setupResetButton('resetButtonTopOutCom', ['parameterSearchTopOutCom', 'parameterSearchTopOutCom2']);
 });
