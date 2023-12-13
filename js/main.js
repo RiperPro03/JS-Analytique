@@ -224,8 +224,8 @@ $(document).ready(async function () {
         {
             label: 'Salaire moyen',
             data: dataValuesSPE,
-            backgroundColor: 'rgba(135, 206, 250, 0.75)',
-            borderColor: 'rgba(70, 130, 180, 1)'
+            backgroundColor: 'rgba(255, 228, 98, 0.75)',
+            borderColor: 'rgba(246, 200, 95, 1)'
         }
     ],labelsSPE, "Salaire moyen par année d'expérience");
 
@@ -253,8 +253,8 @@ $(document).ready(async function () {
         {
             label: 'Salaire moyen',
             data: dataValuesSPlat,
-            backgroundColor: 'rgba(135, 206, 250, 0.75)',
-            borderColor: 'rgba(70, 130, 180, 1)'
+            backgroundColor: 'rgba(16, 193, 241, 0.75)',
+            borderColor: 'rgba(11, 132, 165, 1)'
         }
     ], labelsSPlat, "Salaire moyen par plateforme de cloud");
 
@@ -268,8 +268,8 @@ $(document).ready(async function () {
         {
             label: 'Salaire moyen',
             data: dataValuesSFrame,
-            backgroundColor: 'rgba(135, 206, 250, 0.75)',
-            borderColor: 'rgba(70, 130, 180, 1)'
+            backgroundColor: 'rgba(32, 224, 116, 0.75)',
+            borderColor: 'rgba(24, 173, 89, 1)'
         }
     ], labelsSFrame, "Salaire moyen par plateforme de FrameWork");
 
@@ -280,13 +280,11 @@ $(document).ready(async function () {
     let labelsTOPOs = Object.keys(resultatsTOPOs);
     let dataValuesTOPOs = labelsTOPOs.map(label => resultatsTOPOs[label]);
     let TopOS = loadPieChart("TopOS", dataValuesTOPOs, labelsTOPOs, "TOP des systèmes d’exploitation par métier","Nombre d'utilisation");
-
     addListenerToInput3('parameterSearchTopOS', 'parameterSearchTopOS2', 'dropdownMenuTopOS', 'OpSysProfessionaluse', TopOS);
 
     let resultatsTOPCom = topOsCom(datasetGlobal, "OfficeStackSyncHaveWorkedWith");
     let labelsTOPCom = Object.keys(resultatsTOPCom);
     let dataValuesTOPCom = labelsTOPCom.map(label => resultatsTOPCom[label]);
-    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier","Nombre d'utilisation");
-
+    let TopOutCom = loadDoughnutChart("TopOutCom", dataValuesTOPCom, labelsTOPCom, "TOP des outils de communication par métier", "Nombre d'utilisation");
     addListenerToInput3('parameterSearchTopOutCom', 'parameterSearchTopOutCom2', 'dropdownMenuTopOutCom', 'OfficeStackSyncHaveWorkedWith', TopOutCom);
 });
