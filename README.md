@@ -25,7 +25,7 @@ Pour mettre en place et utiliser JS-Analytique, suivez ces étapes simples :
 
 - Configuration des Données :
   - Créez un dossier data à la racine du dossier www.
-  - Téléchargez les fichiers de données de l'enquête StackOverflow et placez-les dans le dossier data.
+  - Placez les fichiers de données de l'enquête StackOverflow dans le dossier data.
 
 - Paramétrage du Chemin d'Accès aux Données :
   - Ouvrez le fichier main.js.
