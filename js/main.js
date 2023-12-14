@@ -336,20 +336,20 @@ $(document).ready(async function () {
 
     let dataSalParExp = prepareChartData(moyenneSalaire, datasetGlobal, "WorkExp");
     setupChart('line', 'SalParExp', dataSalParExp, 'rgba(255, 228, 98, 0.75)', 'rgba(246, 200, 95, 1)',
-        "Salaire moyen par année d'expérience (€)", 'ErrorSalParExp', ['parameterSearchSalParExp', 'WorkExp'], 'resetButtonSalParExp', 'input1');
+        "Salaire annuel moyen par année d'expérience (€)", 'ErrorSalParExp', ['parameterSearchSalParExp', 'WorkExp'], 'resetButtonSalParExp', 'input1');
 
     let dataSalParEtu = prepareChartData(moyenneSalaire, datasetGlobal, "EdLevel");
     setupChart('bar', 'SalParEtu', dataSalParEtu, 'rgba(189,135,250,0.75)', 'rgb(131,70,180)',
-        "Salaire moyen par niveau d'étude (€)", 'ErrorSalParEtu', ['parameterSearchSalParEtu', 'EdLevel'], 'resetButtonSalParEtu', 'input1');
+        "Salaire annuel moyen par niveau d'étude (€)", 'ErrorSalParEtu', ['parameterSearchSalParEtu', 'EdLevel'], 'resetButtonSalParEtu', 'input1');
 
 
     let dataSalParPlatCloud = prepareChartData(moyenneSalairePlatFrame, datasetGlobal, "PlatformHaveWorkedWith");
     setupChart('bar', 'SalParPlatCloud', dataSalParPlatCloud, 'rgba(16, 193, 241, 0.75)', 'rgba(11, 132, 165, 1)',
-        "Salaire moyen par plateforme de cloud (€)", 'ErrorSalParPlatCloud', ['parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud', 'PlatformHaveWorkedWith'], 'resetButtonSalParPlatCloud', 'input2');
+        "Salaire annuel moyen par plateforme de cloud (€)", 'ErrorSalParPlatCloud', ['parameterSearchSalParPlatCloud', 'expYearsSalParPlatCloud', 'PlatformHaveWorkedWith'], 'resetButtonSalParPlatCloud', 'input2');
 
     let dataSalParFrameWork = prepareChartData(moyenneSalairePlatFrame, datasetGlobal, "WebframeHaveWorkedWith");
     setupChart('bar', 'SalParFrameWork', dataSalParFrameWork, 'rgba(32, 224, 116, 0.75)', 'rgba(24, 173, 89, 1)',
-        "Salaire moyen par plateforme de FrameWork (€)", 'ErrorSalParFrameWork', ['parameterSalParFrameWork', 'expYearsSalParFrameWork', 'WebframeHaveWorkedWith'], 'resetButtonSalParFrameWork', 'input2');
+        "Salaire annuel moyen par plateforme de FrameWork (€)", 'ErrorSalParFrameWork', ['parameterSalParFrameWork', 'expYearsSalParFrameWork', 'WebframeHaveWorkedWith'], 'resetButtonSalParFrameWork', 'input2');
 
     let dataTopOS = prepareChartData(topOsCom, datasetGlobal, "OpSysProfessionaluse");
     setupPieDoughnutChart('pie', 'TopOS', dataTopOS, "TOP des systèmes d’exploitation par métier", 'ErrorTopOS',
